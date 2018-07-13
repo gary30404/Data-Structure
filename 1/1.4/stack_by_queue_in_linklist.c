@@ -57,36 +57,42 @@ int dequeue(){
     return -1;
 }
 
+void push(int data){
+    enqueue(data);
+}
+
+int pop(queue *q){
+    queue *temp = q;
+    if (q == NULL)
+        printf("The stack is empty.\n");
+    else{
+        int ln = 0;
+        while(q != NULL){
+            ln++;
+            q = q->next;
+        }
+        for (int i = 0; i<ln-1; i++){
+            int t = dequeue();
+            enqueue(t);
+        }
+    }
+    return dequeue();
+}
+
 int main(){
     front = (queue *)malloc(sizeof(queue));
-    printf("Create a queue which size is 5.\n");
     create_queue();
-    printf("Enqueue: 1,\t2,\t3\n");
-    enqueue(1); enqueue(2); enqueue(3); 
-    // print the queue
-    queue *current_node = front;
-    while(current_node != NULL){
-        printf("%d\t", current_node->Data);
-        current_node = current_node->next;
-    }
-    printf("\n");
-    printf("Enqueue: 4,\t5\n");
-    enqueue(4); enqueue(5);
-    current_node = front;
-    while(current_node != NULL){
-        printf("%d\t", current_node->Data);
-        current_node = current_node->next;
-    }
-    printf("\n");
-    printf("Dequeue, the front is: %d\n", dequeue());
-    printf("Dequeue, the front is: %d\n", dequeue());
-    // print the queue
-    current_node = front;
-    while(current_node != NULL){
-        printf("%d\t", current_node->Data);
-        current_node = current_node->next;
-    }
-    printf("\n");
+    printf("Push: 1, 2, 3\n");
+    push(1);
+    push(2);
+    push(3);
+    printf("Pop: %d\n", pop(front));
+    printf("Pop: %d\n", pop(front));
+    printf("Push: 4, 5\n");
+    push(4);
+    push(5);
+    printf("Pop: %d\n", pop(front));
+
     return 0;
 }
 
